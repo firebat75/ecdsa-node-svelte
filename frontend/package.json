@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@tabler/icons-svelte": "^2.47.0",
 		"bits-ui": "^0.18.3"
 	}
 }

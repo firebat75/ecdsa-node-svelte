@@ -1,16 +1,15 @@
 <script>
     import Balances from "../components/Balances.svelte";
-    import MeltTest from "../components/MeltTest.svelte";
     import BitsTest from "../components/BitsTest.svelte";
+    import { Button } from "bits-ui";
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>
-    Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<h1>ECDSA Node</h1>
 
 <Balances />
 
-<MeltTest />
-
 <BitsTest />
+
+<Button.Root class="h-12 w-80 bg-blue-500 hover:bg-blue-600 rounded">
+    Click me
+</Button.Root>
