@@ -4,12 +4,14 @@
     import { Button } from "bits-ui";
 </script>
 
-<h1>ECDSA Node</h1>
+<body class="p-4">
+    <h1>ECDSA Node</h1>
 
-<Balances />
+    <Balances />
 
-<BitsTest />
+    <BitsTest />
 
-<Button.Root class="h-12 w-80 bg-blue-500 hover:bg-blue-600 rounded">
-    Click me
-</Button.Root>
+    <Button.Root class="h-12 w-80 bg-blue-500 hover:bg-blue-600 rounded">
+        Click me
+    </Button.Root>
+</body>
