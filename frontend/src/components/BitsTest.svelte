@@ -3,11 +3,13 @@
 </script>
 
 <Accordion.Root>
-    <Accordion.Item value="first">
+    <Accordion.Item value="first" class="text-3xl font-bold underline">
         <Accordion.Header>
             <Accordion.Trigger>First</Accordion.Trigger>
         </Accordion.Header>
-        <Accordion.Content>First accordion content</Accordion.Content>
+        <Accordion.Content class="text-3xl font-bold underline"
+            >First accordion content</Accordion.Content
+        >
     </Accordion.Item>
     <Accordion.Item value="second">
         <Accordion.Header>
