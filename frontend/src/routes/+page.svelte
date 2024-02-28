@@ -4,7 +4,7 @@
     import { Button } from "bits-ui";
 </script>
 
-<body class="p-4">
+<div class="p-4">
     <h1>ECDSA Node</h1>
 
     <Balances />
@@ -14,4 +14,4 @@
     <Button.Root class="h-12 w-80 bg-blue-500 hover:bg-blue-600 rounded">
         Click me
     </Button.Root>
-</body>
+</div>
