@@ -12,7 +12,7 @@
             <input
                 type="text"
                 name="sk"
-                class="bg-slate-500 rounded p-1 w-[36rem]"
+                class="bg-slate-500 rounded p-1 w-[40rem]"
             />
         </div>
         <div class="grid m-2">
@@ -20,15 +20,15 @@
             <input
                 type="text"
                 name="address"
-                class="bg-slate-500 rounded p-1 w-[36rem]"
+                class="bg-slate-500 rounded p-1 w-[40rem]"
             />
         </div>
         <div class="grid m-2">
-            <label for="amount" class="m-1">Amount:</label>
+            <label for="amount" class="m-1">Amount to send:</label>
             <input
                 type="text"
                 name="amount"
-                class="bg-slate-500 rounded p-1 w-[36rem]"
+                class="bg-slate-500 rounded p-1 w-[40rem]"
             />
         </div>
     </div>
