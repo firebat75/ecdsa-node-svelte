@@ -11,6 +11,23 @@
     function createNewWallet() {
         secretKey = secp256k1.utils.randomPrivateKey();
         publicKey = secp256k1.getPublicKey(secretKey);
+
+        sendToServer();
+    }
+
+    async function sendToServer() {
+        const res = await fetch(
+            `http://localhost:3042/create/0x${toHex(publicKey).toString()}`,
+            {
+                method: "POST",
+            },
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            });
+
+        console.log(res);
     }
 </script>
 
