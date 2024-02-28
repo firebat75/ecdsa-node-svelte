@@ -39,6 +39,22 @@ app.post("/send", (req, res) => {
   }
 });
 
+
+app.post("/create/:address", (req, res) => {
+  const { address } = req.params;
+  console.log("creating", address);
+  balances[address] = 1000;
+  res.send(balances);
+});
+
+// app.get("/create", (req, res) => {
+//   // const { address } = req.params;
+//   // console.log("creating address", address);
+//   res.send(1000);
+//   // balances.push({ address: 1000 });
+//   // res.status(200).send({ message: `address ${address} created successfully` })
+// })
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}!`);
 });
