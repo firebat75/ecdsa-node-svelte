@@ -1,13 +1,21 @@
 <script>
+    import { onMount } from "svelte";
     let wallets = {};
-    fetch("http://localhost:3042/balances")
-        .then((response) => response.json())
-        .then((data) => {
-            wallets = data;
-            for (const [key, value] of Object.entries(wallets)) {
-                console.log(`${key}: ${value}`);
-            }
-        });
+
+    function getBalances() {
+        fetch("http://localhost:3042/balances")
+            .then((response) => response.json())
+            .then((data) => {
+                wallets = data;
+                for (const [key, value] of Object.entries(wallets)) {
+                    console.log(`${key}: ${value}`);
+                }
+            });
+    }
+
+    onMount(async () => {
+        getBalances();
+    });
 </script>
 
 <div class="grid bg-slate-700 w-96 p-1 rounded">
