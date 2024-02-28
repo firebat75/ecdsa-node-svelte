@@ -2,6 +2,7 @@
     import AddressBook from "../components/AddressBook.svelte";
     import BitsTest from "../components/BitsTest.svelte";
     import CreateWallet from "../components/CreateWallet.svelte";
+    import Transfer from "../components/Transfer.svelte";
     import { Button } from "bits-ui";
 </script>
 
@@ -11,4 +12,6 @@
     <AddressBook />
 
     <CreateWallet />
+
+    <Transfer />
 </div>
