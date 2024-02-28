@@ -1,9 +1,12 @@
 <script>
-    import { currentAddress } from "$lib/stores";
+    import { updateAddressBook } from "$lib/stores";
     import { Button } from "bits-ui";
 
     import { toHex } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     let secretKey = secp256k1.utils.randomPrivateKey();
     let publicKey = secp256k1.getPublicKey(secretKey);
@@ -12,10 +15,12 @@
         secretKey = secp256k1.utils.randomPrivateKey();
         publicKey = secp256k1.getPublicKey(secretKey);
 
-        sendToServer();
+        addToAddressBook();
+        dispatch("walletCreated", { secretKey, publicKey });
+        updateAddressBook();
     }
 
-    async function sendToServer() {
+    async function addToAddressBook() {
         const res = await fetch(
             `http://localhost:3042/create/0x${toHex(publicKey).toString()}`,
             {

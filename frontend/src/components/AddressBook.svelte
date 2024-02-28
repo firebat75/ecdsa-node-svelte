@@ -1,27 +1,25 @@
 <script>
     import { onMount } from "svelte";
-    let wallets = {};
+    import { addressBookStore, updateAddressBook } from "$lib/stores";
 
-    function getBalances() {
-        fetch("http://localhost:3042/balances")
-            .then((response) => response.json())
-            .then((data) => {
-                wallets = data;
-                for (const [key, value] of Object.entries(wallets)) {
-                    console.log(`${key}: ${value}`);
-                }
-            });
-    }
+    /**
+     * @type {{ [s: string]: any; } | ArrayLike<any>}
+     */
+    let addressBook;
+
+    addressBookStore.subscribe((value) => {
+        addressBook = value;
+    });
 
     onMount(async () => {
-        getBalances();
+        updateAddressBook();
     });
 </script>
 
-<div class="grid bg-slate-700 w-96 p-2 m-2 rounded">
+<div class="grid bg-slate-700 w-m p-2 m-2 rounded">
     <h1>All Addresses</h1>
     <hr />
-    {#each Object.entries(wallets) as [address, amount]}
+    {#each Object.entries(addressBook) as [address, amount]}
         <div class="inline-flex m-1 bg-slate-600 rounded">
             <div class="bg-purple-900 from-blue-600 p-1 rounded">{address}</div>
             <div class="p-1">{amount}</div>
