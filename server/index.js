@@ -7,10 +7,6 @@ app.use(cors());
 app.use(express.json());
 
 const balances = {
-  "0x1": 100,
-  "0x2": 50,
-  "0x3": 75,
-  "0x4": 500,
 };
 
 app.get("/balances", (req, res) => {
