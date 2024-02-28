@@ -18,7 +18,7 @@
     });
 </script>
 
-<div class="grid bg-slate-700 w-96 p-1 rounded">
+<div class="grid bg-slate-700 w-96 p-2 m-2 rounded">
     <h1>All Addresses</h1>
     <hr />
     {#each Object.entries(wallets) as [address, amount]}

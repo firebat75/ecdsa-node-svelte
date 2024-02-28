@@ -25,6 +25,7 @@
 	"type": "module",
 	"dependencies": {
 		"@tabler/icons-svelte": "^2.47.0",
-		"bits-ui": "^0.18.3"
+		"bits-ui": "^0.18.3",
+		"ethereum-cryptography": "^2.1.3"
 	}
 }

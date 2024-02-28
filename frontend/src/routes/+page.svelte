@@ -1,17 +1,14 @@
 <script>
     import Balances from "../components/Balances.svelte";
     import BitsTest from "../components/BitsTest.svelte";
+    import CreateWallet from "../components/CreateWallet.svelte";
     import { Button } from "bits-ui";
 </script>
 
 <div class="p-4">
-    <h1>ECDSA Node</h1>
+    <h1 class="m-2">ECDSA Node</h1>
 
     <Balances />
 
-    <BitsTest />
-
-    <Button.Root class="h-12 w-80 bg-blue-500 hover:bg-blue-600 rounded">
-        Click me
-    </Button.Root>
+    <CreateWallet />
 </div>
