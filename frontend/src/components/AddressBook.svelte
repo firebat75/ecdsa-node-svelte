@@ -36,9 +36,9 @@
         <div class="inline-flex m-1 bg-slate-600 rounded" id={address}>
             <div
                 class="inline-flex bg-purple-900 hover:bg-purple-950 p-1 w-m rounded font-mono items-center justify-center"
-                on:click={clipboard(address.toString())}
+                on:click={clipboard(address)}
             >
-                {address.toString().slice(0, 8)}...
+                {address.slice(0, 8)}...
                 <IconClipboard size={18} stroke={2} />
             </div>
             <div class="inline-grid w-full">
