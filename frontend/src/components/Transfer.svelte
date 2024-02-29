@@ -9,21 +9,56 @@
 
     $: console.log(sk);
 
-    async function transfer() {
-        const pubKey = secp256k1.getPublicKey(sk);
-        const res = await fetch(`http://localhost:3042/transfer`, {
-            method: "POST",
-            body: JSON.stringify({
-                publicKey: null,
-                signature: null,
-                address: null,
-                amount: null,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            });
+    // async function transfer() {
+    //     const pubKey = secp256k1.getPublicKey(sk);
+    //     const res = await fetch(`http://localhost:3042/transfer`, {
+    //         method: "POST",
+    //         body: JSON.stringify({
+    //             message: { sender: pubKey, recipient: address, amount: amount },
+    //             signature: null,
+    //         }),
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log(data);
+    //         });
+    // }
+
+    /**
+     * Creates a JSON stringified object
+     * {
+     *  sender: "0x123...",
+     *  recipient: "0x456...".
+     *  amount: 99
+     * }
+     * @param {string} sender - sender address as 0x{hex}
+     * @param {string} recipient - recipient address as 0x{hex}
+     * @param {string} amount - amount sender will send to recipient
+     * @return {string} - stringified version of the transaction message
+     */
+    function createMessage(sender, recipient, amount) {
+        return JSON.stringify({
+            sender: `0x${toHex(secp256k1.getPublicKey(String(sender).slice(2)))}`,
+            recipient: recipient,
+            amount: Number(amount),
+        });
+    }
+
+    /**
+     * Hashes a string message to a hexcode
+     * @param {string} msg
+     */
+    function hashMessage(msg) {
+        console.log(toHex(Uint8Array.from(msg)));
+        return toHex(Uint8Array.from(msg));
+    }
+
+    /**
+     * @param {string} msgHash
+     * @param {string} sk
+     */
+    function generateSignature(msgHash, sk) {
+        console.log(secp256k1.sign(msgHash, sk.slice(2)));
     }
 </script>
 
@@ -63,7 +98,10 @@
         <Button.Root
             class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
   hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
-            on:click={transfer}
+            on:click={generateSignature(
+                hashMessage(createMessage(sk, address, amount)),
+                sk,
+            )}
         >
             Transfer
         </Button.Root>
