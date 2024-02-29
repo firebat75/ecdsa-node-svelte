@@ -10,12 +10,14 @@
     $: console.log(sk);
 
     async function transfer() {
+        const pubKey = secp256k1.getPublicKey(sk);
         const res = await fetch(`http://localhost:3042/transfer`, {
             method: "POST",
             body: JSON.stringify({
+                publicKey: null,
                 signature: null,
                 address: null,
-                amount: 0,
+                amount: null,
             }),
         })
             .then((response) => response.json())
@@ -61,6 +63,7 @@
         <Button.Root
             class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
   hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
+            on:click={transfer}
         >
             Transfer
         </Button.Root>
