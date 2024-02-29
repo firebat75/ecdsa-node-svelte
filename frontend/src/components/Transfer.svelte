@@ -34,7 +34,7 @@
      * @param {string} sender - sender address as 0x{hex}
      * @param {string} recipient - recipient address as 0x{hex}
      * @param {string} amount - amount sender will send to recipient
-     * @return {string} - stringified version of the transaction message
+     * @return {string} stringified version of the transaction message
      */
     function createMessage(sender, recipient, amount) {
         return JSON.stringify({
@@ -46,19 +46,22 @@
 
     /**
      * Hashes a string message to a hexcode
-     * @param {string} msg
+     * @param {string} msg - input msg
+     * @return {string} input msg as a hexcode
      */
     function hashMessage(msg) {
-        console.log(toHex(Uint8Array.from(msg)));
+        // @ts-ignore
         return toHex(Uint8Array.from(msg));
     }
 
     /**
+     * Generates an SECP256 signature
      * @param {string} msgHash
      * @param {string} sk
+     * @returns an SECP256 signature
      */
     function generateSignature(msgHash, sk) {
-        console.log(secp256k1.sign(msgHash, sk.slice(2)));
+        return secp256k1.sign(msgHash, sk.slice(2));
     }
 </script>
 
