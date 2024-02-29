@@ -68,9 +68,24 @@
     }
 
     /**
-     * @param {string} senderPrivateKey
-     * @param {string} recipientPublicKey
-     * @param {string} amount
+     * Creates the object that will be the body for the transaction POST request
+     * @param {string} senderPrivateKey - sender's private key as 0xHex
+     * @param {string} recipientPublicKey - recipient's public key as 0xHex
+     * @param {string} amount - amount to send as a string of a nonzero integer
+     * @returns {object} an object containing the transaction message and signature
+     * Returns:
+     * {
+     *      message: {
+     *              "sender": "0x123...",
+     *              "recipient": "0x456...",
+     *              "amount": 0
+     *              },
+     *      signature: {
+     *              r: String(bigInt),
+     *              s: String(bigInt),
+     *              recovery: either 0 or 1
+     *              }
+     *  }
      */
     function createTransaction(senderPrivateKey, recipientPublicKey, amount) {
         const msg = createMessage(senderPrivateKey, recipientPublicKey, amount);
