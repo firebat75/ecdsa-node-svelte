@@ -49,7 +49,7 @@
             <div
                 class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono w-[40rem]"
             >
-                0x{toHex(publicKey)}
+                0x{String(toHex(publicKey)).slice(1)}
             </div>
             Your private key is
             <div
