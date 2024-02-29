@@ -4,9 +4,9 @@
     import { Button } from "bits-ui";
     import { IconSignLeft } from "@tabler/icons-svelte";
 
-    let sk = "0xSatoshiNakamoto";
-    let address = "0xHalFinney";
-    let amount = "0";
+    let sk = "0xSatoshiNakamoto"; // sender's private key
+    let address = "0xHalFinney"; // recipient's public key
+    let amount = "0"; // amount sender wants to send
 
     $: console.log(sk);
 
@@ -91,8 +91,11 @@
         const msg = createMessage(senderPrivateKey, recipientPublicKey, amount);
         const sig = generateSignature(hashMessage(msg), senderPrivateKey);
         const sigStrings = {
+            // @ts-ignore
             r: String(sig.r),
+            // @ts-ignore
             s: String(sig.s),
+            // @ts-ignore
             recovery: sig.recovery,
         };
         return { message: msg, signature: sigStrings };
@@ -108,7 +111,7 @@
             <input
                 type="text"
                 name="sk"
-                class="bg-slate-500 rounded p-1 w-[40rem]"
+                class="bg-slate-500 rounded p-1 w-[40rem] font-mono"
                 bind:value={sk}
             />
         </div>
@@ -117,7 +120,7 @@
             <input
                 type="text"
                 name="address"
-                class="bg-slate-500 rounded p-1 w-[40rem]"
+                class="bg-slate-500 rounded p-1 w-[40rem] font-mono"
                 bind:value={address}
             />
         </div>
@@ -126,7 +129,7 @@
             <input
                 type="text"
                 name="amount"
-                class="bg-slate-500 rounded p-1 w-[40rem]"
+                class="bg-slate-500 rounded p-1 w-[40rem] font-mono"
                 bind:value={amount}
             />
         </div>
