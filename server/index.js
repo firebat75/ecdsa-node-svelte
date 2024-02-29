@@ -24,7 +24,8 @@ var secp = require("ethereum-cryptography/secp256k1");
 const { toHex, hexToBytes } = require("ethereum-cryptography/utils");
 
 app.post("/transfer", (req, res) => {
-  const { sender, recipient, amount } = req.body;
+  const { sender, recipient, amount, signature } = req.body;
+
 
 
   if (balances[sender] < amount) {
