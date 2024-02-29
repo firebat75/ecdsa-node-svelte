@@ -20,11 +20,12 @@ app.get("/balance/:address", (req, res) => {
   res.send({ balance });
 });
 
-app.post("/send", (req, res) => {
+var secp = require("ethereum-cryptography/secp256k1");
+const { toHex, hexToBytes } = require("ethereum-cryptography/utils");
+
+app.post("/transfer", (req, res) => {
   const { sender, recipient, amount } = req.body;
 
-  setInitialBalance(sender);
-  setInitialBalance(recipient);
 
   if (balances[sender] < amount) {
     res.status(400).send({ message: "Not enough funds!" });
