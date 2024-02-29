@@ -2,6 +2,7 @@
     import { toHex } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
     import { Button } from "bits-ui";
+    import { IconSignLeft } from "@tabler/icons-svelte";
 
     let sk = "0xSatoshiNakamoto";
     let address = "0xHalFinney";
@@ -56,12 +57,30 @@
 
     /**
      * Generates an SECP256 signature
-     * @param {string} msgHash
-     * @param {string} sk
-     * @returns an SECP256 signature
+     * @param {string} msgHash - hex of a message string
+     * @param {string} sk - hrivate key as 0x{Hex}
+     * @returns {object} an SECP256 signature
+     * SECP256 signatures contain 2 bigInts and a recovery number (either 1 or 0)
+     * {r: {bigInt}, s: {bigInt}, recovery: {0 or 1}}
      */
     function generateSignature(msgHash, sk) {
         return secp256k1.sign(msgHash, sk.slice(2));
+    }
+
+    /**
+     * @param {string} senderPrivateKey
+     * @param {string} recipientPublicKey
+     * @param {string} amount
+     */
+    function createTransaction(senderPrivateKey, recipientPublicKey, amount) {
+        const msg = createMessage(senderPrivateKey, recipientPublicKey, amount);
+        const sig = generateSignature(hashMessage(msg), senderPrivateKey);
+        const sigStrings = {
+            r: String(sig.r),
+            s: String(sig.s),
+            recovery: sig.recovery,
+        };
+        return { message: msg, signature: sigStrings };
     }
 </script>
 
@@ -101,10 +120,7 @@
         <Button.Root
             class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
   hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
-            on:click={generateSignature(
-                hashMessage(createMessage(sk, address, amount)),
-                sk,
-            )}
+            on:click={createTransaction(sk, address, amount)}
         >
             Transfer
         </Button.Root>
