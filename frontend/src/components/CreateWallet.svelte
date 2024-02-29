@@ -56,7 +56,7 @@
     <div class="inline-flex items-center justify-center">
         <Button.Root
             class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
-  hover:bg-blue-600 bg-blue-500 w-48 h-8 rounded m-4"
+  hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
             on:click={createNewWallet}
         >
             Generate New Wallet

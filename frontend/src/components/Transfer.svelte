@@ -1,6 +1,13 @@
 <script>
     import { toHex } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
+    import { Button } from "bits-ui";
+
+    let sk = "0xSatoshiNakamoto";
+    let address = "0xHalFinney";
+    let amount = "0";
+
+    $: console.log(sk);
 </script>
 
 <div class="grid bg-slate-700 w-min p-2 m-2 rounded">
@@ -13,6 +20,7 @@
                 type="text"
                 name="sk"
                 class="bg-slate-500 rounded p-1 w-[40rem]"
+                bind:value={sk}
             />
         </div>
         <div class="grid m-2">
@@ -21,6 +29,7 @@
                 type="text"
                 name="address"
                 class="bg-slate-500 rounded p-1 w-[40rem]"
+                bind:value={address}
             />
         </div>
         <div class="grid m-2">
@@ -29,7 +38,16 @@
                 type="text"
                 name="amount"
                 class="bg-slate-500 rounded p-1 w-[40rem]"
+                bind:value={amount}
             />
         </div>
+    </div>
+    <div class="inline-flex items-center justify-center">
+        <Button.Root
+            class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
+  hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
+        >
+            Transfer
+        </Button.Root>
     </div>
 </div>
