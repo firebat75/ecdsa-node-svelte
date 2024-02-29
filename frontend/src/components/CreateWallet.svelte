@@ -22,7 +22,9 @@
 
     async function addToAddressBook() {
         const res = await fetch(
-            `http://localhost:3042/create/0x${toHex(publicKey).toString()}`,
+            `http://localhost:3042/create/0x${toHex(
+                publicKey.slice(1),
+            ).toString()}`,
             {
                 method: "POST",
             },

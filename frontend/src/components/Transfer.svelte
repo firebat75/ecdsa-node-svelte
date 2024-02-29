@@ -8,6 +8,21 @@
     let amount = "0";
 
     $: console.log(sk);
+
+    async function transfer() {
+        const res = await fetch(`http://localhost:3042/transfer`, {
+            method: "POST",
+            body: JSON.stringify({
+                signature: null,
+                address: null,
+                amount: 0,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            });
+    }
 </script>
 
 <div class="grid bg-slate-700 w-min p-2 m-2 rounded">
