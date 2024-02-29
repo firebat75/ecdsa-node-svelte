@@ -15,6 +15,10 @@
         secretKey = secp256k1.utils.randomPrivateKey();
         publicKey = secp256k1.getPublicKey(secretKey);
 
+        console.log("creating wallet...");
+        console.log("private key:", toHex(secretKey));
+        console.log("public key:", toHex(publicKey));
+
         addToAddressBook();
         dispatch("walletCreated", { secretKey, publicKey });
         updateAddressBook();
@@ -22,8 +26,8 @@
 
     async function addToAddressBook() {
         const res = await fetch(
-            `http://localhost:3042/create/0x${toHex(
-                publicKey.slice(1),
+            `http://localhost:3042/create/0x${String(
+                toHex(publicKey).slice(1),
             ).toString()}`,
             {
                 method: "POST",
@@ -31,7 +35,7 @@
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                console.log("address added");
             });
     }
 </script>
