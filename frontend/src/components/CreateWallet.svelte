@@ -47,13 +47,13 @@
         <div class=" m-1 p-1">
             Your public key is
             <div
-                class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono w-[40rem]"
+                class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono w-[40rem] px-4"
             >
                 0x{String(toHex(publicKey)).slice(1)}
             </div>
             Your private key is
             <div
-                class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono ring-1 ring-red-700 w-[40rem]"
+                class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono ring-1 ring-red-700 w-[40rem] px-4"
             >
                 0x{toHex(secretKey)}
             </div>

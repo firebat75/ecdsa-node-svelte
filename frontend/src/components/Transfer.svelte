@@ -6,7 +6,7 @@
 
     let sk = "0xSatoshiNakamoto"; // sender's private key
     let address = "0xHalFinney"; // recipient's public key
-    let amount = "0"; // amount sender wants to send
+    let amount = "10"; // amount sender wants to send
 
     $: console.log(sk);
 
@@ -111,7 +111,7 @@
             <input
                 type="text"
                 name="sk"
-                class="bg-slate-500 rounded p-1 w-[40rem] font-mono"
+                class="bg-slate-500 rounded p-1 w-[40rem] font-mono px-4"
                 bind:value={sk}
             />
         </div>
@@ -120,7 +120,7 @@
             <input
                 type="text"
                 name="address"
-                class="bg-slate-500 rounded p-1 w-[40rem] font-mono"
+                class="bg-slate-500 rounded p-1 w-[40rem] font-mono px-4"
                 bind:value={address}
             />
         </div>
@@ -129,7 +129,7 @@
             <input
                 type="text"
                 name="amount"
-                class="bg-slate-500 rounded p-1 w-[40rem] font-mono"
+                class="bg-slate-500 rounded p-1 w-[40rem] font-mono px-4"
                 bind:value={amount}
             />
         </div>
@@ -140,7 +140,14 @@
   hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
             on:click={createTransaction(sk, address, amount)}
         >
-            Transfer
+            Sign Transfer
+        </Button.Root>
+        <Button.Root
+            class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
+hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
+            on:click={createTransaction(sk, address, amount)}
+        >
+            Send Transfer
         </Button.Root>
     </div>
 </div>
