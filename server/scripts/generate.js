@@ -39,3 +39,14 @@ console.log(sig);
 
 const ver = secp.secp256k1.verify(sig, msgUint, pub1Bytes);
 console.log(ver);
+
+
+console.log("public key:", pub1);
+console.log("private key:", sec1);
+const msg = "Tranfer 10000 to Joe Biden";
+const msgHex = toHex(Uint8Array.from(msg))
+console.log("msgHash as hex:", msgHex);
+const sig2 = secp.secp256k1.sign(msgHex, sec1);
+console.log(sig2);
+const ver2 = secp.secp256k1.verify(sig2, msgHex, `0${pub1.slice(2)}`);
+console.log(ver2);
