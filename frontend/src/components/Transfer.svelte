@@ -105,6 +105,10 @@
     let validAmount = false;
     let validSig = false;
 
+    /**
+     * Changes the value of validSK
+     * @param {string} sk - private key string
+     */
     function checkSK(sk) {
         if (sk.length == 66 && sk.slice(0, 2) == "0x") {
             try {
@@ -121,6 +125,10 @@
         }
     }
 
+    /**
+     * Changes the value of validAddress
+     * @param {string} pk - address string
+     */
     function checkAddress(pk) {
         if (pk.length == 67 && pk.slice(0, 2) == "0x") {
             try {
@@ -137,8 +145,13 @@
         }
     }
 
+    /**
+     * Changes the value of validAmount
+     * @param {string} amount - amount value string
+     */
     function checkAmount(amount) {
         if (
+            // @ts-ignore
             !isNaN(amount) &&
             Number.isInteger(Number(amount)) &&
             Number(amount) > 0
