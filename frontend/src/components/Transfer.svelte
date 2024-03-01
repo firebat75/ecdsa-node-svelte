@@ -1,14 +1,13 @@
 <script>
-    import { toHex } from "ethereum-cryptography/utils";
+    import { toHex, hexToBytes } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
     import { Button } from "bits-ui";
     import { IconSignLeft } from "@tabler/icons-svelte";
+    import { isNumberString } from "@melt-ui/svelte/internal/helpers";
 
     let sk = "0xSatoshiNakamoto"; // sender's private key
     let address = "0xHalFinney"; // recipient's public key
     let amount = "10"; // amount sender wants to send
-
-    $: console.log(sk);
 
     // async function transfer() {
     //     const pubKey = secp256k1.getPublicKey(sk);
@@ -100,6 +99,57 @@
         };
         return { message: msg, signature: sigStrings };
     }
+
+    let validSK = false;
+    let validAddress = false;
+    let validAmount = false;
+    let validSig = false;
+
+    function checkSK(sk) {
+        if (sk.length == 66 && sk.slice(0, 2) == "0x") {
+            try {
+                hexToBytes(sk.slice(2));
+                console.log("valid private key");
+                validSK = true;
+            } catch (err) {
+                validSK = false;
+                console.log("invalid private key");
+            }
+        } else {
+            validSK = false;
+            console.log("invalid private key");
+        }
+    }
+
+    function checkAddress(pk) {
+        if (pk.length == 67 && pk.slice(0, 2) == "0x") {
+            try {
+                hexToBytes(`0${pk.slice(2)}`);
+                console.log("valid address");
+                validAddress = true;
+            } catch (err) {
+                validAddress = false;
+                console.log("invalid address");
+            }
+        } else {
+            validAddress = false;
+            console.log("invalid address");
+        }
+    }
+
+    function checkAmount(amount) {
+        if (
+            !isNaN(amount) &&
+            Number.isInteger(Number(amount)) &&
+            Number(amount) > 0
+        ) {
+            validAmount = true;
+            console.log("valid amount");
+        } else {
+            validAmount = false;
+            console.log("invalid amount");
+        }
+    }
 </script>
 
 <div class="grid bg-slate-700 w-min p-2 m-2 rounded">
@@ -113,6 +163,7 @@
                 name="sk"
                 class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
                 bind:value={sk}
+                on:change={() => checkSK(sk)}
             />
         </div>
         <div class="grid m-2">
@@ -122,6 +173,7 @@
                 name="address"
                 class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
                 bind:value={address}
+                on:change={() => checkAddress(address)}
             />
         </div>
         <div class="grid m-2">
@@ -131,6 +183,7 @@
                 name="amount"
                 class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
                 bind:value={amount}
+                on:change={() => checkAmount(amount)}
             />
         </div>
     </div>
