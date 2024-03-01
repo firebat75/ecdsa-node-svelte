@@ -1,6 +1,7 @@
 <script>
     import { updateAddressBook } from "$lib/stores";
     import { Button } from "bits-ui";
+    import { IconClipboard } from "@tabler/icons-svelte";
 
     import { toHex } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
@@ -38,6 +39,15 @@
                 console.log("address added");
             });
     }
+
+    /**
+     * Adds value to clipboard
+     * @param {string} value - hex of a message string\
+     */
+    function clipboard(value) {
+        navigator.clipboard.writeText(value);
+        console.log(value, "copied to clipboard");
+    }
 </script>
 
 <div class="grid bg-slate-700 w-min p-2 m-2 rounded">
@@ -46,17 +56,29 @@
     <div>
         <div class=" m-1 p-1">
             Your public key is
-            <div
-                class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono w-[40rem] px-4"
+            <button
+                class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
+                on:click={() => clipboard(`0x${toHex(publicKey).slice(1)}`)}
             >
-                0x{String(toHex(publicKey)).slice(1)}
-            </div>
+                <div class="font-mono">
+                    0x{toHex(publicKey).slice(1)}
+                </div>
+                <div class="w-min rounded ml-2">
+                    <IconClipboard size={18} stroke={2} class="" />
+                </div>
+            </button>
             Your private key is
-            <div
-                class="inline-flex m-1 bg-slate-600 p-1 rounded font-mono ring-1 ring-red-700 w-[40rem] px-4"
+            <button
+                class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
+                on:click={() => clipboard(`0x${toHex(secretKey)}`)}
             >
-                0x{toHex(secretKey)}
-            </div>
+                <div class="font-mono">
+                    0x{toHex(secretKey)}
+                </div>
+                <div class="w-min rounded ml-2">
+                    <IconClipboard size={18} stroke={2} class="" />
+                </div>
+            </button>
         </div>
     </div>
     <div class="inline-flex items-center justify-center">
