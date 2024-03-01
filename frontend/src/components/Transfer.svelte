@@ -96,6 +96,7 @@
             // @ts-ignore
             recovery: sig.recovery,
         };
+        console.log({ message: msg, signature: sigStrings });
         return { message: msg, signature: sigStrings };
     }
 
@@ -162,6 +163,10 @@
             console.log("invalid amount");
         }
     }
+
+    $: checkSK(sk);
+    $: checkAddress(address);
+    $: checkAmount(amount);
 </script>
 
 <div class="grid bg-slate-700 w-min p-2 m-2 rounded">
@@ -179,7 +184,6 @@
                         name="sk"
                         class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
                         bind:value={sk}
-                        on:change={() => checkSK(sk)}
                     />
                     <IconCheck size={18} stroke={3} color={"green"} />
                 </div>
@@ -192,7 +196,6 @@
                         name="sk"
                         class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
                         bind:value={sk}
-                        on:change={() => checkSK(sk)}
                     />
                     <IconX size={18} stroke={3} color={"red"} />
                 </div>
@@ -209,7 +212,6 @@
                         name="sk"
                         class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
                         bind:value={address}
-                        on:change={() => checkAddress(address)}
                     />
                     <IconCheck size={18} stroke={3} color={"green"} />
                 </div>
@@ -222,7 +224,6 @@
                         name="sk"
                         class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
                         bind:value={address}
-                        on:change={() => checkAddress(address)}
                     />
                     <IconX size={18} stroke={3} color={"red"} />
                 </div>
@@ -239,7 +240,6 @@
                         name="sk"
                         class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
                         bind:value={amount}
-                        on:change={() => checkAmount(amount)}
                     />
                     <IconCheck size={18} stroke={3} color={"green"} />
                 </div>
@@ -252,7 +252,6 @@
                         name="sk"
                         class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
                         bind:value={amount}
-                        on:change={() => checkAmount(amount)}
                     />
                     <IconX size={18} stroke={3} color={"red"} />
                 </div>
@@ -260,13 +259,22 @@
         </div>
     </div>
     <div class="inline-flex items-center justify-center">
-        <Button.Root
-            class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
+        {#if validSK && validAddress && validAmount}
+            <Button.Root
+                class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
   hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
-            on:click={() => createTransaction(sk, address, amount)}
-        >
-            Sign Transfer
-        </Button.Root>
+                on:click={() => createTransaction(sk, address, amount)}
+            >
+                Sign
+            </Button.Root>
+        {:else}
+            <Button.Root
+                class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini bg-blue-200 w-48 h-8 rounded m-4"
+                on:click={() => createTransaction(sk, address, amount)}
+            >
+                Sign
+            </Button.Root>
+        {/if}
         <Button.Root
             class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
 hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
