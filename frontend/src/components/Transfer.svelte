@@ -111,7 +111,7 @@
             <input
                 type="text"
                 name="sk"
-                class="bg-slate-500 rounded p-1 w-[40rem] font-mono px-4"
+                class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
                 bind:value={sk}
             />
         </div>
@@ -120,7 +120,7 @@
             <input
                 type="text"
                 name="address"
-                class="bg-slate-500 rounded p-1 w-[40rem] font-mono px-4"
+                class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
                 bind:value={address}
             />
         </div>
@@ -129,7 +129,7 @@
             <input
                 type="text"
                 name="amount"
-                class="bg-slate-500 rounded p-1 w-[40rem] font-mono px-4"
+                class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
                 bind:value={amount}
             />
         </div>
