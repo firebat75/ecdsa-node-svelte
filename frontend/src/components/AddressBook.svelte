@@ -34,13 +34,13 @@
     </div>
     {#each Object.entries(addressBook) as [address, amount]}
         <div class="inline-flex m-1 bg-slate-600 rounded" id={address}>
-            <div
+            <button
                 class="inline-flex bg-purple-900 hover:bg-purple-950 p-1 w-m rounded font-mono items-center justify-center"
-                on:click={clipboard(address)}
+                on:click={() => clipboard(address)}
             >
                 {address.slice(0, 8)}...
                 <IconClipboard size={18} stroke={2} />
-            </div>
+            </button>
             <div class="inline-grid w-full">
                 <div class="inline-flex p-1 items-center justify-self-end">
                     <div class="mx-1">{amount}</div>
