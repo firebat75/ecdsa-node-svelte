@@ -2,12 +2,11 @@
     import { toHex, hexToBytes } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
     import { Button } from "bits-ui";
-    import { IconSignLeft } from "@tabler/icons-svelte";
-    import { isNumberString } from "@melt-ui/svelte/internal/helpers";
+    import { IconCheck, IconX } from "@tabler/icons-svelte";
 
     let sk = "0xSatoshiNakamoto"; // sender's private key
     let address = "0xHalFinney"; // recipient's public key
-    let amount = "10"; // amount sender wants to send
+    let amount = "0"; // amount sender wants to send
 
     // async function transfer() {
     //     const pubKey = secp256k1.getPublicKey(sk);
@@ -171,33 +170,93 @@
     <div class="p-2">
         <div class="grid m-2">
             <label for="sk" class="m-1">Enter your private key:</label>
-            <input
-                type="text"
-                name="sk"
-                class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
-                bind:value={sk}
-                on:change={() => checkSK(sk)}
-            />
+            {#if validSK}
+                <div
+                    class="inline-flex bg-slate-600 rounded p-1 items-center ring-1 ring-green-600"
+                >
+                    <input
+                        type="text"
+                        name="sk"
+                        class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
+                        bind:value={sk}
+                        on:change={() => checkSK(sk)}
+                    />
+                    <IconCheck size={18} stroke={3} color={"green"} />
+                </div>
+            {:else}
+                <div
+                    class="inline-flex bg-slate-600 rounded p-1 items-center ring-1 ring-red-600"
+                >
+                    <input
+                        type="text"
+                        name="sk"
+                        class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
+                        bind:value={sk}
+                        on:change={() => checkSK(sk)}
+                    />
+                    <IconX size={18} stroke={3} color={"red"} />
+                </div>
+            {/if}
         </div>
         <div class="grid m-2">
             <label for="address" class="m-1">Receiving Address:</label>
-            <input
-                type="text"
-                name="address"
-                class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
-                bind:value={address}
-                on:change={() => checkAddress(address)}
-            />
+            {#if validAddress}
+                <div
+                    class="inline-flex bg-slate-600 rounded p-1 items-center ring-1 ring-green-600"
+                >
+                    <input
+                        type="text"
+                        name="sk"
+                        class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
+                        bind:value={address}
+                        on:change={() => checkAddress(address)}
+                    />
+                    <IconCheck size={18} stroke={3} color={"green"} />
+                </div>
+            {:else}
+                <div
+                    class="inline-flex bg-slate-600 rounded p-1 items-center ring-1 ring-red-600"
+                >
+                    <input
+                        type="text"
+                        name="sk"
+                        class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
+                        bind:value={address}
+                        on:change={() => checkAddress(address)}
+                    />
+                    <IconX size={18} stroke={3} color={"red"} />
+                </div>
+            {/if}
         </div>
         <div class="grid m-2">
             <label for="amount" class="m-1">Amount to send:</label>
-            <input
-                type="text"
-                name="amount"
-                class="bg-slate-600 rounded p-1 w-[40rem] font-mono px-4 focus:bg-slate-800"
-                bind:value={amount}
-                on:change={() => checkAmount(amount)}
-            />
+            {#if validAmount}
+                <div
+                    class="inline-flex bg-slate-600 rounded p-1 items-center ring-1 ring-green-600"
+                >
+                    <input
+                        type="text"
+                        name="sk"
+                        class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
+                        bind:value={amount}
+                        on:change={() => checkAmount(amount)}
+                    />
+                    <IconCheck size={18} stroke={3} color={"green"} />
+                </div>
+            {:else}
+                <div
+                    class="inline-flex bg-slate-600 rounded p-1 items-center ring-1 ring-red-600"
+                >
+                    <input
+                        type="text"
+                        name="sk"
+                        class="bg-slate-600 rounded w-[40rem] font-mono px-4 focus:bg-slate-800"
+                        bind:value={amount}
+                        on:change={() => checkAmount(amount)}
+                    />
+                    <IconX size={18} stroke={3} color={"red"} />
+                </div>
+            {/if}
         </div>
     </div>
     <div class="inline-flex items-center justify-center">
