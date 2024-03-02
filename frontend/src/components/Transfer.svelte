@@ -269,18 +269,25 @@
             </Button.Root>
         {:else}
             <Button.Root
-                class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini bg-blue-200 w-48 h-8 rounded m-4"
-                on:click={() => createTransaction(sk, address, amount)}
+                class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini bg-blue-300 w-48 h-8 rounded m-4"
             >
                 Sign
             </Button.Root>
         {/if}
-        <Button.Root
-            class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
-hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
-            on:click={() => createTransaction(sk, address, amount)}
-        >
-            Send Transfer
-        </Button.Root>
+        {#if validSig}
+            <Button.Root
+                class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
+        hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
+                on:click={() => createTransaction(sk, address, amount)}
+            >
+                Send Transfer
+            </Button.Root>
+        {:else}
+            <Button.Root
+                class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini bg-blue-300 w-48 h-8 rounded m-4"
+            >
+                Send Transfer
+            </Button.Root>
+        {/if}
     </div>
 </div>
