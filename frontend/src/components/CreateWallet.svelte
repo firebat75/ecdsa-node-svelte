@@ -5,14 +5,14 @@
 
     import { toHex } from "ethereum-cryptography/utils";
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
-    import { createEventDispatcher } from "svelte";
 
-    const dispatch = createEventDispatcher();
+    let created = false;
 
     let secretKey = secp256k1.utils.randomPrivateKey();
     let publicKey = secp256k1.getPublicKey(secretKey);
 
     function createNewWallet() {
+        created = true;
         secretKey = secp256k1.utils.randomPrivateKey();
         publicKey = secp256k1.getPublicKey(secretKey);
 
@@ -21,7 +21,6 @@
         console.log("public key:", toHex(publicKey));
 
         addToAddressBook();
-        dispatch("walletCreated", { secretKey, publicKey });
         updateAddressBook();
     }
 
@@ -54,32 +53,49 @@
     <h1>Create Wallet</h1>
     <hr />
     <div>
-        <div class=" m-1 p-1">
-            Your public key is
-            <button
-                class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
-                on:click={() => clipboard(`0x${toHex(publicKey).slice(1)}`)}
-            >
-                <div class="font-mono">
-                    0x{toHex(publicKey).slice(1)}
-                </div>
-                <div class="w-min rounded ml-2">
-                    <IconClipboard size={18} stroke={2} class="" />
-                </div>
-            </button>
-            Your private key is
-            <button
-                class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
-                on:click={() => clipboard(`0x${toHex(secretKey)}`)}
-            >
-                <div class="font-mono">
-                    0x{toHex(secretKey)}
-                </div>
-                <div class="w-min rounded ml-2">
-                    <IconClipboard size={18} stroke={2} class="" />
-                </div>
-            </button>
-        </div>
+        {#if created}
+            <div class=" m-1 p-1">
+                Your public key is
+                <button
+                    class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
+                    on:click={() => clipboard(`0x${toHex(publicKey).slice(1)}`)}
+                >
+                    <div class="font-mono">
+                        0x{toHex(publicKey).slice(1)}
+                    </div>
+                    <div class="w-min rounded ml-2">
+                        <IconClipboard size={18} stroke={2} class="" />
+                    </div>
+                </button>
+                Your private key is
+                <button
+                    class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
+                    on:click={() => clipboard(`0x${toHex(secretKey)}`)}
+                >
+                    <div class="font-mono">
+                        0x{toHex(secretKey)}
+                    </div>
+                    <div class="w-min rounded ml-2">
+                        <IconClipboard size={18} stroke={2} class="" />
+                    </div>
+                </button>
+            </div>
+        {:else}
+            <div class=" m-1 p-1">
+                Your public key is
+                <button
+                    class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center"
+                >
+                    <div class="font-mono">Nothing... generate one!</div>
+                </button>
+                Your private key is
+                <button
+                    class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center"
+                >
+                    <div class="font-mono">Nothing... generate one!</div>
+                </button>
+            </div>
+        {/if}
     </div>
     <div class="inline-flex items-center justify-center">
         <Button.Root
