@@ -3,6 +3,7 @@
     import { secp256k1 } from "ethereum-cryptography/secp256k1";
     import { Button } from "bits-ui";
     import { IconCheck, IconX } from "@tabler/icons-svelte";
+    import { updateAddressBook } from "$lib/stores";
 
     let sk = "0xSatoshiNakamoto"; // sender's private key
     let address = "0xHalFinney"; // recipient's public key
@@ -19,11 +20,11 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(transferBody),
-        })
-            .then((response) => console.log(response.json()))
-            .then((data) => {
-                console.log(data);
-            });
+        }).then((response) => console.log(response));
+        // .then((data) => {
+        //     console.log(data);
+        // });
+        updateAddressBook();
     }
 
     /**
@@ -40,7 +41,7 @@
      */
     function createMessage(sender, recipient, amount) {
         return JSON.stringify({
-            sender: `0x${toHex(secp256k1.getPublicKey(String(sender).slice(2)))}`,
+            sender: `0x${toHex(secp256k1.getPublicKey(String(sender).slice(2))).slice(1)}`,
             recipient: recipient,
             amount: Number(amount),
         });
@@ -73,7 +74,7 @@
      * @param {string} senderPrivateKey - sender's private key as 0xHex
      * @param {string} recipientPublicKey - recipient's public key as 0xHex
      * @param {string} amount - amount to send as a string of a nonzero integer
-     * @returns {object} an object containing the transaction message and signature
+     * @returns nothing, it sets the variable transferBody
      * Returns:
      * {
      *      message: {
@@ -91,6 +92,7 @@
     function createTransaction(senderPrivateKey, recipientPublicKey, amount) {
         const msg = createMessage(senderPrivateKey, recipientPublicKey, amount);
         const sig = generateSignature(hashMessage(msg), senderPrivateKey);
+        console.log(sig);
         const sigStrings = {
             // @ts-ignore
             r: String(sig.r),
@@ -102,7 +104,6 @@
         console.log({ message: msg, signature: sigStrings });
         validSig = true;
         transferBody = { message: msg, signature: sigStrings };
-        return { message: msg, signature: sigStrings };
     }
 
     let validSK = false;
