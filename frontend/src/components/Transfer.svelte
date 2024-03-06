@@ -7,21 +7,24 @@
     let sk = "0xSatoshiNakamoto"; // sender's private key
     let address = "0xHalFinney"; // recipient's public key
     let amount = "0"; // amount sender wants to send
+    let transferBody = {}; // message and signature for transfer
 
-    // async function transfer() {
-    //     const pubKey = secp256k1.getPublicKey(sk);
-    //     const res = await fetch(`http://localhost:3042/transfer`, {
-    //         method: "POST",
-    //         body: JSON.stringify({
-    //             message: { sender: pubKey, recipient: address, amount: amount },
-    //             signature: null,
-    //         }),
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //         });
-    // }
+    async function transfer() {
+        console.log("sending transfer");
+        console.log(JSON.stringify(transferBody));
+        // const pubKey = secp256k1.getPublicKey(sk);
+        const res = await fetch(`http://localhost:3042/transfer`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(transferBody),
+        })
+            .then((response) => console.log(response.json()))
+            .then((data) => {
+                console.log(data);
+            });
+    }
 
     /**
      * Creates a JSON stringified object
@@ -97,6 +100,8 @@
             recovery: sig.recovery,
         };
         console.log({ message: msg, signature: sigStrings });
+        validSig = true;
+        transferBody = { message: msg, signature: sigStrings };
         return { message: msg, signature: sigStrings };
     }
 
@@ -278,7 +283,7 @@
             <Button.Root
                 class="inline-flex items-center justify-center rounded-input font-semibold text-background shadow-mini
         hover:bg-blue-700 bg-blue-600 w-48 h-8 rounded m-4"
-                on:click={() => createTransaction(sk, address, amount)}
+                on:click={() => transfer()}
             >
                 Send Transfer
             </Button.Root>
