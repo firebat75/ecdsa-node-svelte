@@ -49,13 +49,13 @@
     }
 </script>
 
-<div class="grid bg-slate-700 w-min p-2 m-2 rounded">
+<div class="grid bg-slate-700 w-[45rem] p-2 m-2 rounded">
     <h1>Create Wallet</h1>
     <hr />
     <div>
         {#if created}
-            <div class=" m-1 p-1">
-                Your public key is
+            <div class="m-1 p-1">
+                <div>Your public key is</div>
                 <button
                     class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
                     on:click={() => clipboard(`0x${toHex(publicKey).slice(1)}`)}
@@ -67,7 +67,9 @@
                         <IconClipboard size={18} stroke={2} class="" />
                     </div>
                 </button>
-                Your private key is
+            </div>
+            <div class="m-1 p-1">
+                <div>Your private key is</div>
                 <button
                     class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center hover:bg-slate-500"
                     on:click={() => clipboard(`0x${toHex(secretKey)}`)}
@@ -81,18 +83,28 @@
                 </button>
             </div>
         {:else}
-            <div class=" m-1 p-1">
-                Your public key is
+            <div class="m-1 p-1">
+                <div>Your public key is</div>
                 <button
                     class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center"
+                    on:click={() => clipboard(`0x${toHex(publicKey).slice(1)}`)}
                 >
                     <div class="font-mono">Nothing... generate one!</div>
+                    <div class="w-min rounded ml-2">
+                        <IconClipboard size={18} stroke={0} class="" />
+                    </div>
                 </button>
-                Your private key is
+            </div>
+            <div class="m-1 p-1">
+                <div>Your private key is</div>
                 <button
                     class="inline-flex m-1 bg-slate-600 rounded w-[40rem] justify-center p-1 items-center"
+                    on:click={() => clipboard(`0x${toHex(secretKey)}`)}
                 >
                     <div class="font-mono">Nothing... generate one!</div>
+                    <div class="w-min rounded ml-2">
+                        <IconClipboard size={18} stroke={0} class="" />
+                    </div>
                 </button>
             </div>
         {/if}

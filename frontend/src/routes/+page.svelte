@@ -7,9 +7,15 @@
 <div class="p-4">
     <h1 class="m-2">ECDSA Node</h1>
 
-    <AddressBook />
+    <div class="flex justify-center w-full">
+        <div class="w-min">
+            <CreateWallet />
 
-    <CreateWallet />
+            <Transfer />
+        </div>
 
-    <Transfer />
+        <div class="w-min">
+            <AddressBook />
+        </div>
+    </div>
 </div>

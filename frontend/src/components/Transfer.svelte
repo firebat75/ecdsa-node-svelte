@@ -172,7 +172,7 @@
     $: checkAmount(amount);
 </script>
 
-<div class="grid bg-slate-700 w-min p-2 m-2 rounded">
+<div class="grid bg-slate-700 w-[45rem] p-2 m-2 rounded">
     <h1>Transfer</h1>
     <hr />
     <div class="p-2">

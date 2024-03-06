@@ -25,7 +25,7 @@
     }
 </script>
 
-<div class="grid bg-slate-700 w-96 p-2 m-2 rounded">
+<div class="grid bg-slate-700 w-96 p-2 m-2 rounded h-min">
     <h1>Address Book</h1>
     <hr />
     <div class="grid grid-cols-2 w-full mt-1">
@@ -33,7 +33,7 @@
         <div class="justify-self-end mx-2">Balance</div>
     </div>
     {#each Object.entries(addressBook) as [address, amount]}
-        <div class="inline-flex m-1 bg-slate-600 rounded" id={address}>
+        <div class="inline-flex m-1 bg-slate-600 rounded h-min" id={address}>
             <button
                 class="inline-flex bg-purple-900 hover:bg-purple-950 p-1 w-m rounded font-mono items-center justify-center"
                 on:click={() => clipboard(address)}
