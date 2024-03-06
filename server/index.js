@@ -35,7 +35,7 @@ app.post("/transfer", (req, res) => {
   pubKey = `0${msgParse.sender.slice(2)}`;
   const ver = secp.secp256k1.verify(signature, msgBits, pubKey);
 
-  if (ver && balances[msgParse.sender] >= msgParse.amount) {
+  if (ver && balances.hasOwnProperty(msgParse.sender) && balances.hasOwnProperty(msgParse.recipient) && balances[msgParse.sender] >= msgParse.amount) {
     balances[msgParse.sender] -= msgParse.amount;
     balances[msgParse.recipient] += msgParse.amount;
     res.status(200).send(`transferred ${msgParse.amount} from ${msgParse.sender} to ${msgParse.recipient}`);
