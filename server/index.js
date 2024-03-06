@@ -21,20 +21,20 @@ app.get("/balance/:address", (req, res) => {
 });
 
 var secp = require("ethereum-cryptography/secp256k1");
-const { toHex, hexToBytes } = require("ethereum-cryptography/utils");
 
 app.post("/transfer", (req, res) => {
   const { message, signature } = req.body;
+  signature.r = BigInt(signature.r);
+  signature.s = BigInt(signature.s);
+  msgBits = Uint8Array.from((message));
+  msgParse = JSON.parse(message);
+  pubKey = msgParse.sender.slice(2)
+  const ver = secp.secp256k1.verify(signature, msgBits, pubKey);
+  console.log(ver);
 
 
+  res.status(200).send({ message: "received" });
 
-  if (balances[sender] < amount) {
-    res.status(400).send({ message: "Not enough funds!" });
-  } else {
-    balances[sender] -= amount;
-    balances[recipient] += amount;
-    res.send({ balance: balances[sender] });
-  }
 });
 
 

@@ -50,3 +50,13 @@ const sig2 = secp.secp256k1.sign(msgHex, sec1);
 console.log(sig2);
 const ver2 = secp.secp256k1.verify(sig2, msgHex, `0${pub1.slice(2)}`);
 console.log(ver2);
+
+let m = { "sender": "0x03da04af5daa84c919498ebaa0dc30d3d53d36636c5701d1c367103ebe4889fe51", "recipient": "0x2fce7da202eafe2205d3eab13bb2be3253736f89ed032e376e42534e9e7de39bc", "amount": 57 };
+
+let x = {
+    r: '84298255315811064746649490132003955731962330101336967278578734794473171176265',
+    s: '16125514621506465250523274691862670435326534271427857438666511069814476122153',
+    recovery: 1
+};
+
+console.log(m.sender);
