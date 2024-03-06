@@ -7,6 +7,10 @@ app.use(cors());
 app.use(express.json());
 
 const balances = {
+  "0x39ee95db9f2b0cbdc6ee3bc52ce98d45b013e955c9fd1494c0c375de5c7614c31": 1000,
+  "0x3c603db14c7f39e15e8222aeffbce4d1e5a70495bca7b53d50f98638037679488": 1000,
+  "0x24722ff8b70fb87bc266f202d410d3e4a2d64d6223123ed93c591fe8699d73204": 1000,
+  "0x365ba35f369923b76d1de5860135f0bf3b6de02779c1168d7d166e690d06521f9": 1000,
 };
 
 app.get("/balances", (req, res) => {
@@ -28,13 +32,24 @@ app.post("/transfer", (req, res) => {
   signature.s = BigInt(signature.s);
   msgBits = Uint8Array.from((message));
   msgParse = JSON.parse(message);
-  pubKey = msgParse.sender.slice(2)
+  pubKey = `0${msgParse.sender.slice(2)}`;
   const ver = secp.secp256k1.verify(signature, msgBits, pubKey);
+
   console.log(ver);
+  console.log(balances);
+  console.log(msgParse.sender);
+  console.log(balances[msgParse.sender]);
+  console.log(msgParse.recipient);
+  console.log(balances[msgParse.recipient]);
+  console.log(msgParse.amount);
 
-
-  res.status(200).send({ message: "received" });
-
+  if (ver && balances[msgParse.sender] >= msgParse.amount) {
+    balances[msgParse.sender] -= msgParse.amount;
+    balances[msgParse.recipient] += msgParse.amount;
+    res.status(200).send(`transferred ${msgParse.amount} from ${msgParse.sender} to ${msgParse.recipient}`);
+  } else {
+    res.status(400).send("error in transferring");
+  }
 });
 
 
@@ -50,8 +65,3 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}!`);
 });
 
-function setInitialBalance(address) {
-  if (!balances[address]) {
-    balances[address] = 0;
-  }
-}
