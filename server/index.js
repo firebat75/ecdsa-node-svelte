@@ -35,14 +35,6 @@ app.post("/transfer", (req, res) => {
   pubKey = `0${msgParse.sender.slice(2)}`;
   const ver = secp.secp256k1.verify(signature, msgBits, pubKey);
 
-  console.log(ver);
-  console.log(balances);
-  console.log(msgParse.sender);
-  console.log(balances[msgParse.sender]);
-  console.log(msgParse.recipient);
-  console.log(balances[msgParse.recipient]);
-  console.log(msgParse.amount);
-
   if (ver && balances[msgParse.sender] >= msgParse.amount) {
     balances[msgParse.sender] -= msgParse.amount;
     balances[msgParse.recipient] += msgParse.amount;
