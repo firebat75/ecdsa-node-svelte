@@ -14,14 +14,21 @@
         console.log("sending transfer");
         console.log(JSON.stringify(transferBody));
         // const pubKey = secp256k1.getPublicKey(sk);
-        const res = await fetch(`http://localhost:3042/transfer`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
+        const res = await fetch(
+            `https://ecdsa-node-svelte.onrender.com/transfer`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(transferBody),
             },
-            body: JSON.stringify(transferBody),
-        }).then((response) => console.log(response));
+        ).then((response) => console.log(response));
         updateAddressBook();
+        sk = ""; // sender's private key
+        address = ""; // recipient's public key
+        amount = ""; // amount sender wants to send
+        validSig = false;
     }
 
     /**

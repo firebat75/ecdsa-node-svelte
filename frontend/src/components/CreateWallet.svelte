@@ -26,7 +26,7 @@
 
     async function addToAddressBook() {
         const res = await fetch(
-            `http://localhost:3042/create/0x${String(
+            `https://ecdsa-node-svelte.onrender.com/create/0x${String(
                 toHex(publicKey).slice(1),
             ).toString()}`,
             {

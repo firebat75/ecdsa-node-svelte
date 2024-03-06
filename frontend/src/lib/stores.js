@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export const addressBookStore = writable({});
 
 export async function updateAddressBook() {
-    await fetch("http://localhost:3042/balances")
+    await fetch("https://ecdsa-node-svelte.onrender.com/balances")
         .then((response) => response.json())
         .then((data) => {
             addressBookStore.set(data);
